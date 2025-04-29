@@ -2,11 +2,9 @@ import { Request, Response, Router } from "express";
 const Submit = Router();
 
 import client from "../db"
-import { Schema, string, z } from "zod";
 
-interface teammembername {
-    name : string
-}
+
+
 
 import { FormSchmema } from "../types";
 import { FormSchmematype } from "../types";
@@ -27,6 +25,8 @@ Submit.post("/submit-idea" , async (req: Request , res : Response) : Promise<any
 
 
     const { name , contactEmail , description , teamMembers  } : FormSchmematype = req.body 
+
+
 
     try {
   
@@ -68,7 +68,7 @@ Submit.post("/submit-idea" , async (req: Request , res : Response) : Promise<any
     }catch(e ) {
         console.log(e);
         return res.status(500).json({
-          msg: "Intenal server eroor ",
+          msg: "Intenal server error ",
         });
       }  
 
