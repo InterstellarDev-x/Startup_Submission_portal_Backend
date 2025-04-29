@@ -68,7 +68,7 @@ Submit.post("/submit-idea" , async (req: Request , res : Response) : Promise<any
     }catch(e ) {
         console.log(e);
         return res.status(500).json({
-          msg: "Intenal server error ",
+          msg: "Email already exist ",
         });
       }  
 
