@@ -29,24 +29,41 @@ Submit.post("/submit-idea" , async (req: Request , res : Response) : Promise<any
     const { name , contactEmail , description , teamMembers  } : FormSchmematype = req.body 
 
     try {
-      const response =   await client.forms.create({
-        data: {
-            name,
-            contactEmail,
-            description,
-            teamMembers: {   
-              create: teamMembers.map((member : {name : string})  => ({
-                name: member.name,
-    
-              })),
-            },
-          }
-        })
+  
+       const checkemail = await client.forms.findFirst({
+        where : {
+          contactEmail : contactEmail
+        }
+       })
 
-       
-        return res.json({
-         message : "Submitted Succesfully"
+       if(!checkemail){
+        const response =   await client.forms.create({
+          data: {
+              name,
+              contactEmail,
+              description,
+              teamMembers: {   
+                create: teamMembers.map((member : {name : string})  => ({
+                  name: member.name,
+      
+                })),
+              },
+            }
+          })
+
+          return res.status(200).json({
+            message : "Submitted Succesfully"
+           })
+
+       }else {
+        return res.status(403).json({
+          message : "Email already exist"
         })
+       }
+  
+
+
+
         
     }catch(e ) {
         console.log(e);
