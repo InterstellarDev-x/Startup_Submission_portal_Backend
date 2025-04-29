@@ -143,6 +143,11 @@ Admin.delete("/submissions/:id", (req, res) => __awaiter(void 0, void 0, void 0,
             }
         });
         console.log(resposne);
+        if (!resposne) {
+            return res.status(500).json({
+                message: "could not delete now "
+            });
+        }
         return res.status(200).json({
             message: "Delted "
         });
